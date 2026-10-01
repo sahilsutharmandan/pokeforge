@@ -25,11 +25,11 @@
 }
 
 .swatch0 {
-  background: var(--series-a);
+  background: var(--series-1);
 }
 
 .swatch1 {
-  background: var(--series-b);
+  background: var(--series-2);
 }
 
 .chart {
@@ -64,7 +64,7 @@
 }
 
 .bar0 {
-  fill: var(--series-a);
+  fill: var(--series-1);
 }
 
 .bar1 {

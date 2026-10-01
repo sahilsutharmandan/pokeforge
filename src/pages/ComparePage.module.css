@@ -60,11 +60,11 @@
 }
 
 .dota {
-  background: var(--series-a);
+  background: var(--series-1);
 }
 
 .dotb {
-  background: var(--series-b);
+  background: var(--series-2);
 }
 
 .pickerTotal {

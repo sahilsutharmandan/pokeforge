@@ -9,7 +9,7 @@ interface Props {
   b: Pokemon
 }
 
-const PAD = { top: 12, right: 48, bottom: 28, left: 92 }
+const PAD = { top: 12, right: 16, bottom: 28, left: 44 }
 const ROW = 48
 const BAR = 15
 const GAP = 4
