@@ -42,14 +42,10 @@ export function Combobox({
   )
 
   useEffect(() => {
-    setActive(-1)
-  }, [value])
-
-  useEffect(() => {
-    if (active < 0) return
     const item = listRef.current?.children[active] as HTMLElement | undefined
     item?.scrollIntoView({ block: 'nearest' })
-  }, [active])
+    setActive(-1)
+  }, [matches])
 
   const showList = open && value.trim().length > 0
 
@@ -72,9 +68,9 @@ export function Combobox({
         if (matches.length) setActive((i) => (i <= 0 ? matches.length - 1 : i - 1))
         break
       case 'Enter':
-        if (showList && active >= 0 && matches[active]) {
+        if (showList && active >= 0 && options[active]) {
           e.preventDefault()
-          pick(matches[active])
+          pick(options[active])
         } else {
           setOpen(false)
         }
