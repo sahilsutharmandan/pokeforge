@@ -58,7 +58,7 @@ export function TypeEffectiveness({ types }: { types: string[] }) {
         {TYPES.map((type) => {
           const m = multipliers[type]
           return (
-            <div key={type} className={`${styles.cell} ${tone(m)}`} style={badgeStyle([type], 0)}>
+            <div key={type} className={`${styles.cell} ${tone(m)}`} style={badgeStyle([type])}>
               <span className={styles.cellType}>{formatName(type).slice(0, 3)}</span>
               <span className={styles.cellValue}>{formatMultiplier(m)}</span>
             </div>

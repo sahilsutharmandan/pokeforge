@@ -99,7 +99,7 @@ export function DexFilters(props: Props) {
                 key={type}
                 type="button"
                 className={`${styles.chip} ${selected ? styles.chipSelected : ''}`}
-                style={badgeStyle([type], 0)}
+                style={badgeStyle([type])}
                 aria-pressed={selected}
                 onClick={() => toggleType(type)}
               >

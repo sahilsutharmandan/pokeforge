@@ -12,7 +12,7 @@ interface BadgeProps {
 
 export function TypeBadge({ type, size = 'md', className = '' }: BadgeProps) {
   return (
-    <span className={`${styles.badge} ${styles[size]} ${className}`} style={badgeStyle([type], 0)}>
+    <span className={`${styles.badge} ${styles[size]} ${className}`} style={badgeStyle([type])}>
       {formatName(type)}
     </span>
   )

@@ -50,13 +50,16 @@ export const typeColor = (type: string) => TYPE_COLORS[type] ?? '#8a8a8a'
 
 export const typeTextColor = (type: string) => (DARK_TEXT.has(type) ? '#1d1f2b' : '#ffffff')
 
-export function badgeStyle(types: string[], index: number): CSSProperties {
-  const type = types[index] ?? types[0]
+const typeAtSlot = (types: string[], slot: number) => types[slot - 1] ?? types[0]
+
+export function badgeStyle(types: string[], slot = 1): CSSProperties {
+  const type = typeAtSlot(types, slot)
   return { '--badge': typeColor(type), '--badge-text': typeTextColor(type) } as CSSProperties
 }
 
 export function typeGradient(types: string[]): CSSProperties {
-  const first = typeColor(types[0])
-  const second = types[1] ? typeColor(types[1]) : first
-  return { '--type-1': first, '--type-2': second } as CSSProperties
+  return {
+    '--type-1': typeColor(typeAtSlot(types, 1)),
+    '--type-2': typeColor(typeAtSlot(types, 2)),
+  } as CSSProperties
 }
