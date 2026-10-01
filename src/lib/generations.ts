@@ -6,17 +6,27 @@ export interface Generation {
   end: number
 }
 
-export const GENERATIONS: Generation[] = [
-  { id: 1, label: 'Gen I', region: 'Kanto', start: 1, end: 151 },
-  { id: 2, label: 'Gen II', region: 'Johto', start: 152, end: 251 },
-  { id: 3, label: 'Gen III', region: 'Hoenn', start: 252, end: 386 },
-  { id: 4, label: 'Gen IV', region: 'Sinnoh', start: 387, end: 493 },
-  { id: 5, label: 'Gen V', region: 'Unova', start: 494, end: 649 },
-  { id: 6, label: 'Gen VI', region: 'Kalos', start: 650, end: 721 },
-  { id: 7, label: 'Gen VII', region: 'Alola', start: 722, end: 809 },
-  { id: 8, label: 'Gen VIII', region: 'Galar', start: 810, end: 905 },
-  { id: 9, label: 'Gen IX', region: 'Paldea', start: 906, end: 1025 },
+const REGIONS: [region: string, size: number][] = [
+  ['Kanto', 151],
+  ['Johto', 100],
+  ['Hoenn', 135],
+  ['Sinnoh', 107],
+  ['Unova', 156],
+  ['Kalos', 72],
+  ['Alola', 88],
+  ['Galar', 96],
+  ['Paldea', 120],
 ]
+
+const NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
+
+let offset = 0
+
+export const GENERATIONS: Generation[] = REGIONS.map(([region, size], i) => {
+  const start = offset
+  offset += size
+  return { id: i + 1, label: `Gen ${NUMERALS[i]}`, region, start, end: start + size - 1 }
+})
 
 export const findGeneration = (id: number) => GENERATIONS.find((g) => g.id === id)
 

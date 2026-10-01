@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Combobox } from '../components/Combobox/Combobox'
 import { TrashIcon } from '../components/Icons'
 import { Spinner } from '../components/Spinner/Spinner'
@@ -77,7 +77,7 @@ export default function TeamPage() {
         </div>
       </div>
 
-      <div className={styles.slots}>
+      <div className={styles.slots} style={{ '--team-size': TEAM_SIZE } as CSSProperties}>
         {Array.from({ length: TEAM_SIZE }, (_, i) => {
           const member = team[i]
           return (
@@ -85,7 +85,7 @@ export default function TeamPage() {
               key={member?.key ?? `empty-${i}`}
               index={i}
               pokemon={member ? byId.get(member.id) : undefined}
-              onRemove={member ? () => remove(member.key) : undefined}
+              onRemove={member ? () => remove(member.id) : undefined}
             />
           )
         })}
