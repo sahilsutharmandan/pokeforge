@@ -4,10 +4,14 @@ export const formatName = (slug: string) => capitalise(slug.trim())
 
 export const formatDexNumber = (id: number) => `#${String(id).padStart(4, '0')}`
 
-export const formatHeight = (decimetres: number) => `${(decimetres / 10).toFixed(1)} m`
+export const round = (value: number, digits = 1) => Number(value.toFixed(digits))
 
-export const formatWeight = (hectograms: number) => `${(hectograms / 10).toFixed(1)} kg`
+export const toPercent = (value: number, max = 100) => Math.max(0, (value / max) * 100)
 
-const FRACTIONS: Record<number, string> = { 0.25: '¼', 0.5: '½' }
+const formatMeasure = (value: number, unit: string) => `${round(value)} ${unit}`
 
-export const formatMultiplier = (value: number) => `${FRACTIONS[value] ?? value}×`
+export const formatHeight = (height: number) => formatMeasure(height, 'm')
+
+export const formatWeight = (weight: number) => formatMeasure(weight, 'kg')
+
+export const formatMultiplier = (value: number) => `${round(value)}×`

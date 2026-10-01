@@ -1,5 +1,6 @@
 import type { Stat } from '../../lib/api'
-import { STAT_LABELS, statPercent, statTone, statTotal } from '../../lib/stats'
+import { toPercent } from '../../lib/format'
+import { MAX_BASE_STAT, STAT_LABELS, statTone, statTotal } from '../../lib/stats'
 import styles from './StatBars.module.css'
 
 export function StatBars({ stats }: { stats: Stat[] }) {
@@ -16,11 +17,11 @@ export function StatBars({ stats }: { stats: Stat[] }) {
             aria-label={STAT_LABELS[stat.key]}
             aria-valuenow={stat.value}
             aria-valuemin={0}
-            aria-valuemax={255}
+            aria-valuemax={MAX_BASE_STAT}
           >
             <div
               className={`${styles.fill} ${styles[statTone(stat.value)]}`}
-              style={{ width: `${statPercent(stat.value)}%` }}
+              style={{ width: `${toPercent(stat.value)}%` }}
             />
           </div>
         </div>

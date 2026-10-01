@@ -3,16 +3,12 @@ import { TYPES } from './types'
 
 export type Multipliers = Record<string, number>
 
+const damageFactor = (type: TypeData, attacking: string) => type.damageFrom[attacking] || 1
+
 export function defensiveMultipliers(defending: TypeData[]): Multipliers {
-  const result: Multipliers = {}
-  for (const attacking of TYPES) {
-    let multiplier = 1
-    for (const type of defending) {
-      multiplier *= type.damageFrom[attacking] ?? 1
-    }
-    result[attacking] = multiplier
-  }
-  return result
+  return Object.fromEntries(
+    TYPES.map((attacking) => [attacking, defending.reduce((m, type) => m * damageFactor(type, attacking), 1)]),
+  )
 }
 
 export interface EffectivenessGroups {
