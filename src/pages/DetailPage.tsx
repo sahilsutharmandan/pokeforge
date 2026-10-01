@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { EmptyState } from '../components/EmptyState/EmptyState'
+import { EvolutionChain } from '../components/EvolutionChain/EvolutionChain'
 import { ChevronLeftIcon, ChevronRightIcon, CompareIcon, HeartIcon, PlusIcon, SparkleIcon } from '../components/Icons'
 import { Spinner } from '../components/Spinner/Spinner'
 import { StatBars } from '../components/StatBars/StatBars'
 import { TypeBadges } from '../components/TypeBadge/TypeBadge'
-import { useDexIndex, usePokemon, useSpecies } from '../hooks/usePokemon'
+import { TypeEffectiveness } from '../components/TypeEffectiveness/TypeEffectiveness'
+import { useDexIndex, useEvolutionChain, usePokemon, useSpecies } from '../hooks/usePokemon'
 import { DEX_SIZE } from '../lib/api'
 import { formatDexNumber, formatHeight, formatName, formatWeight } from '../lib/format'
 import { findGeneration } from '../lib/generations'
@@ -21,6 +23,8 @@ export default function DetailPage() {
   const pokemon = usePokemon(valid ? id : undefined)
   const species = useSpecies(valid ? id : undefined)
   const index = useDexIndex()
+  const chainId = species.data?.id === id ? species.data.evolutionChainId : undefined
+  const chain = useEvolutionChain(chainId || undefined)
   const team = useTeam()
   const { isFavourite, toggle } = useFavourites()
   const navigate = useNavigate()
@@ -175,6 +179,22 @@ export default function DetailPage() {
           <StatBars stats={p.stats} />
         </section>
       </div>
+
+      <section className={`card ${styles.panel} ${styles.section}`}>
+        <h2 className={styles.panelTitle}>Evolution</h2>
+        {chain.data && chainId ? (
+          <EvolutionChain chain={chain.data} currentId={id} />
+        ) : chain.error ? (
+          <p className={styles.muted}>Evolution data is unavailable right now.</p>
+        ) : (
+          <p className={styles.muted}>Loading evolution chain…</p>
+        )}
+      </section>
+
+      <section className={`card ${styles.panel} ${styles.section}`}>
+        <h2 className={styles.panelTitle}>Type matchups</h2>
+        <TypeEffectiveness types={p.types} />
+      </section>
     </div>
   )
 }

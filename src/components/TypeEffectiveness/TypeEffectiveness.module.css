@@ -1,0 +1,202 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.message {
+  color: var(--text-muted);
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.group {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--surface-sunken);
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.count {
+  font-size: 11px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.none {
+  font-size: 14px;
+  color: var(--text-faint);
+}
+
+.groupList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.groupItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.gridTitle {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.cellType {
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 0;
+  background: var(--badge);
+  color: var(--badge-text);
+}
+
+.cellValue {
+  font-size: 14px;
+  font-weight: 800;
+  padding: 6px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.neutral .cellValue {
+  color: var(--text-faint);
+  font-weight: 600;
+}
+
+.x4,
+.x4 .cellValue {
+  color: #fff;
+}
+
+.pill.x4,
+.x4 .cellValue {
+  background: #c7253e;
+}
+
+.pill.x2,
+.x2 .cellValue {
+  background: color-mix(in srgb, #e5484d 22%, transparent);
+  color: #d1343a;
+}
+
+.pill.half,
+.half .cellValue {
+  background: color-mix(in srgb, #30a46c 20%, transparent);
+  color: #218358;
+}
+
+.pill.quarter,
+.quarter .cellValue {
+  background: #1f8a5a;
+  color: #fff;
+}
+
+.pill.immune,
+.immune .cellValue {
+  background: #2b2f42;
+  color: #fff;
+}
+
+.pill.x4 {
+  color: #fff;
+}
+
+.cell .cellValue {
+  width: 100%;
+  text-align: center;
+}
+
+:global([data-theme='dark']) .pill.x2,
+:global([data-theme='dark']) .x2 .cellValue {
+  color: #ff8b8f;
+}
+
+:global([data-theme='dark']) .pill.half,
+:global([data-theme='dark']) .half .cellValue {
+  color: #5bd39a;
+}
+
+:global([data-theme='dark']) .pill.immune,
+:global([data-theme='dark']) .immune .cellValue {
+  background: #000;
+}
+
+@media (max-width: 900px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .cellType {
+    font-size: 10px;
+  }
+
+  .cellValue {
+    font-size: 13px;
+  }
+}
