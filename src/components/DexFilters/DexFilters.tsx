@@ -2,7 +2,8 @@ import type { DexEntry } from '../../lib/api'
 import { formatName } from '../../lib/format'
 import { GENERATIONS } from '../../lib/generations'
 import { TYPES, badgeStyle } from '../../lib/types'
-import { SearchIcon } from '../Icons'
+import { useNavigate } from 'react-router-dom'
+import { Combobox } from '../Combobox/Combobox'
 import styles from './DexFilters.module.css'
 
 export type SortKey = 'id-asc' | 'id-desc' | 'name-asc' | 'name-desc'
@@ -31,6 +32,7 @@ interface Props {
 
 export function DexFilters(props: Props) {
   const { query, types, generation, sort } = props
+  const navigate = useNavigate()
 
   const toggleType = (type: string) => {
     if (types.includes(type)) props.onTypesChange(types.filter((t) => t !== type))
@@ -43,20 +45,13 @@ export function DexFilters(props: Props) {
     <section className={`card ${styles.panel}`} aria-label="Filters">
       <div className={styles.row}>
         <div className={styles.search}>
-          <label htmlFor="dex-search" className="visually-hidden">
-            Search Pokémon
-          </label>
-          <span className={styles.searchIcon}>
-            <SearchIcon size={18} />
-          </span>
-          <input
-            id="dex-search"
-            className={styles.searchInput}
-            type="search"
-            placeholder="Search by name or number"
+          <Combobox
+            label="Search Pokémon"
+            options={props.entries}
             value={query}
-            onChange={(e) => props.onQueryChange(e.target.value)}
-            autoComplete="off"
+            onChange={props.onQueryChange}
+            onSelect={(entry) => navigate(`/pokemon/${entry.id}`)}
+            placeholder="Search by name or number"
           />
         </div>
 
