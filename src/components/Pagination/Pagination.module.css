@@ -1,0 +1,69 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.pages {
+  display: flex;
+  gap: 4px;
+}
+
+.arrow,
+.page {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 600;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.arrow:hover:not(:disabled),
+.page:hover {
+  background: var(--surface-hover);
+}
+
+.arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.current,
+.current:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.gap {
+  width: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--text-faint);
+}
+
+.compact {
+  display: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0 8px;
+}
+
+@media (max-width: 640px) {
+  .pages {
+    display: none;
+  }
+
+  .compact {
+    display: block;
+  }
+}

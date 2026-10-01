@@ -129,6 +129,11 @@
 }
 
 @media (max-width: 640px) {
+  .header {
+    backdrop-filter: none;
+    background: var(--surface);
+  }
+
   .headerInner {
     padding: 0 16px;
   }
