@@ -1,0 +1,137 @@
+.coverage {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.panelHead {
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sub {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.tr {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tr > span:not(:first-child) {
+  text-align: center;
+  font-weight: 700;
+}
+
+.tr:nth-child(even):not(.thead) {
+  background: var(--surface-sunken);
+}
+
+.thead {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.riskRow {
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+
+.weak {
+  color: var(--danger);
+}
+
+.resist {
+  color: var(--success);
+}
+
+.immune {
+  color: var(--focus);
+}
+
+.zero {
+  color: var(--text-faint);
+  font-weight: 500 !important;
+}
+
+.meter {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), #ffb648);
+  transition: width 0.5s ease;
+}
+
+.meterLabel {
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.listTitle {
+  margin: 18px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.faded {
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}
+
+@media (max-width: 900px) {
+  .coverage {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 18px 14px;
+  }
+}

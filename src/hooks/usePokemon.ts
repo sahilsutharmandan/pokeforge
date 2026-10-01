@@ -16,3 +16,6 @@ export const useType = (name: string | undefined) => useAsync(() => (name ? fetc
 export const useTypeList = (names: string[]) => useAsync(() => fetchTypes(names), [names.join(',')])
 
 export const useAllTypes = () => useAsync(() => fetchTypes([...TYPES]), [])
+
+export const usePokemonList = (ids: number[]) =>
+  useAsync(() => Promise.all(ids.map((id) => fetchPokemon(id))), [ids.join(',')])

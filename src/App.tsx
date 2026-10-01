@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout/Layout'
 import DexPage from './pages/DexPage'
 import DetailPage from './pages/DetailPage'
+import TeamPage from './pages/TeamPage'
+import FavouritesPage from './pages/FavouritesPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 export default function App() {
@@ -10,6 +12,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<DexPage />} />
         <Route path="pokemon/:id" element={<DetailPage />} />
+        <Route path="team" element={<TeamPage />} />
+        <Route path="favourites" element={<FavouritesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
