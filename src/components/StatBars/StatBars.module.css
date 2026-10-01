@@ -1,0 +1,68 @@
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 72px 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+}
+
+.fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.low {
+  background: linear-gradient(90deg, #f0605d, #f37a5a);
+}
+
+.mid {
+  background: linear-gradient(90deg, #f2a33a, #f6c344);
+}
+
+.good {
+  background: linear-gradient(90deg, #8bc34a, #5fbf5a);
+}
+
+.high {
+  background: linear-gradient(90deg, #26b9a3, #2f9bd9);
+}
+
+.totalRow {
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+
+.totalRow .label,
+.totalRow .value {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.totalHint {
+  font-size: 13px;
+  color: var(--text-faint);
+}
