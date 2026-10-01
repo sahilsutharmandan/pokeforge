@@ -1,0 +1,79 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.swatch0 {
+  background: var(--series-a);
+}
+
+.swatch1 {
+  background: var(--series-b);
+}
+
+.chart {
+  width: 100%;
+  overflow: hidden;
+}
+
+.chart svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.grid {
+  stroke: var(--border);
+  stroke-dasharray: 3 4;
+}
+
+.tick {
+  font-size: 11px;
+  fill: var(--text-faint);
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--text-muted);
+}
+
+.bar {
+  transition: width 0.5s ease;
+}
+
+.bar0 {
+  fill: var(--series-a);
+}
+
+.bar1 {
+  fill: var(--series-b);
+}
+
+.value {
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--text);
+  font-variant-numeric: tabular-nums;
+}

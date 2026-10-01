@@ -4,6 +4,7 @@ import DexPage from './pages/DexPage'
 import DetailPage from './pages/DetailPage'
 import TeamPage from './pages/TeamPage'
 import FavouritesPage from './pages/FavouritesPage'
+import ComparePage from './pages/ComparePage'
 import NotFoundPage from './pages/NotFoundPage'
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Route index element={<DexPage />} />
         <Route path="pokemon/:id" element={<DetailPage />} />
         <Route path="team" element={<TeamPage />} />
+        <Route path="compare" element={<ComparePage />} />
         <Route path="favourites" element={<FavouritesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

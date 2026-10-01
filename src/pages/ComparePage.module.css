@@ -1,0 +1,186 @@
+.pickers {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0 20px;
+}
+
+.picker {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--type-1, var(--border)) 22%, var(--surface)), var(--surface) 70%);
+}
+
+.pickerBody {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pickerImg {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.18));
+}
+
+.pickerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pickerNumber {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-faint);
+}
+
+.pickerName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.dota {
+  background: var(--series-a);
+}
+
+.dotb {
+  background: var(--series-b);
+}
+
+.pickerTotal {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pickerTotal strong {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.swap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.swap:hover {
+  background: var(--surface-hover);
+}
+
+.results {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.panelTitle {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 9px 8px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+.table th:first-child {
+  text-align: left;
+}
+
+.table thead th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.table tbody th {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.table td {
+  font-weight: 600;
+}
+
+.win {
+  color: var(--success);
+  font-weight: 800 !important;
+}
+
+.totalRow th,
+.totalRow td {
+  border-bottom-width: 2px;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pickers {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .swap {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .pickerImg {
+    width: 96px;
+    height: 96px;
+  }
+
+  .pickerName {
+    font-size: 18px;
+  }
+
+  .panel {
+    padding: 18px 14px;
+  }
+}
