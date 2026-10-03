@@ -85,7 +85,7 @@ export default function TeamPage() {
               key={member?.key ?? `empty-${i}`}
               index={i}
               pokemon={member ? byId.get(member.id) : undefined}
-              onRemove={member ? () => remove(member.id) : undefined}
+              onRemove={member ? () => remove(member.key) : undefined}
             />
           )
         })}

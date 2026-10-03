@@ -19,7 +19,7 @@ interface State {
 type Action =
   | { type: 'theme/toggle' }
   | { type: 'team/add'; id: number }
-  | { type: 'team/remove'; id: number }
+  | { type: 'team/remove'; key: string }
   | { type: 'team/clear' }
   | { type: 'favourites/toggle'; id: number }
 
@@ -48,7 +48,7 @@ function reducer(state: State, action: Action): State {
       if (state.team.length >= TEAM_SIZE) return state
       return { ...state, team: [...state.team, { key: newKey(), id: action.id }] }
     case 'team/remove':
-      return { ...state, team: state.team.filter((m) => m.id !== action.id) }
+      return { ...state, team: state.team.filter((m) => m.key !== action.key) }
     case 'team/clear':
       return { ...state, team: [] }
     case 'favourites/toggle': {
@@ -115,7 +115,7 @@ export function useTeam() {
       team,
       isFull: team.length >= TEAM_SIZE,
       add: (id: number) => dispatch({ type: 'team/add', id }),
-      remove: (id: number) => dispatch({ type: 'team/remove', id }),
+      remove: (key: string) => dispatch({ type: 'team/remove', key }),
       clear: () => dispatch({ type: 'team/clear' }),
     }),
     [team, dispatch],
