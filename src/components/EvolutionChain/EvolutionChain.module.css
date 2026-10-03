@@ -1,6 +1,9 @@
 .chain {
   display: flex;
   justify-content: center;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 4px 0;
 }
 
 .node {
@@ -26,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  width: 104px;
+  width: 120px;
   text-align: center;
   color: var(--text-faint);
 }
@@ -50,18 +53,22 @@
 
 .fanNode {
   flex-direction: column;
+  align-items: center;
   gap: 14px;
 }
 
 .fan {
+  display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 100%;
 }
 
 .fan .branch {
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
 }
 
@@ -143,11 +150,7 @@
   }
 
   .fan {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .fan .branch {
-    align-items: center;
+    gap: 16px;
   }
 
   .card {

@@ -19,7 +19,7 @@ interface State {
 type Action =
   | { type: 'theme/toggle' }
   | { type: 'team/add'; id: number }
-  | { type: 'team/remove'; id: number }
+  | { type: 'team/remove'; key: string }
   | { type: 'team/clear' }
   | { type: 'favourites/toggle'; id: number }
 
@@ -29,16 +29,20 @@ function initialTheme(): Theme {
   return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
+let keySeed = 0
+const newKey = () => `${Date.now().toString(36)}-${(keySeed++).toString(36)}`
+
 function init(): State {
+  const rawTeam = storage.get<TeamMember[]>('team', [])
+  const team = Array.isArray(rawTeam)
+    ? rawTeam.map((m) => (m && m.key ? m : { ...m, key: newKey() }))
+    : []
   return {
     theme: initialTheme(),
-    team: storage.get<TeamMember[]>('team', []),
+    team,
     favourites: storage.get<number[]>('favourites', []),
   }
 }
-
-let keySeed = 0
-const newKey = () => `${Date.now().toString(36)}-${(keySeed++).toString(36)}`
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -48,7 +52,7 @@ function reducer(state: State, action: Action): State {
       if (state.team.length >= TEAM_SIZE) return state
       return { ...state, team: [...state.team, { key: newKey(), id: action.id }] }
     case 'team/remove':
-      return { ...state, team: state.team.filter((m) => m.id !== action.id) }
+      return { ...state, team: state.team.filter((m) => m.key !== action.key) }
     case 'team/clear':
       return { ...state, team: [] }
     case 'favourites/toggle': {
@@ -115,7 +119,7 @@ export function useTeam() {
       team,
       isFull: team.length >= TEAM_SIZE,
       add: (id: number) => dispatch({ type: 'team/add', id }),
-      remove: (id: number) => dispatch({ type: 'team/remove', id }),
+      remove: (key: string) => dispatch({ type: 'team/remove', key }),
       clear: () => dispatch({ type: 'team/clear' }),
     }),
     [team, dispatch],
