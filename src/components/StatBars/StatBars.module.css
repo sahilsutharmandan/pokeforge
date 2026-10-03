@@ -27,6 +27,7 @@
   height: 10px;
   border-radius: 999px;
   background: var(--surface-sunken);
+  overflow: hidden;
 }
 
 .fill {
