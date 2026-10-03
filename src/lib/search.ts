@@ -10,12 +10,28 @@ function score(entry: DexEntry, q: string): number {
     if (id === String(Number(q))) return 3
     return id.startsWith(String(Number(q))) ? 2 : 0
   }
-  const slug = entry.name
+  const slug = entry.name.toLowerCase()
   const display = formatName(slug).toLowerCase()
   const dashed = q.replace(/\s+/g, '-')
-  if (slug.startsWith(dashed) || display.startsWith(q)) return 3
-  if (display.split(/[\s.-]+/).some((w) => w.startsWith(q))) return 2
-  if (slug.includes(dashed) || display.includes(q)) return 1
+  const cleanQ = q.replace(/[^a-z0-9]/g, '')
+  const cleanDisplay = display.replace(/[^a-z0-9]/g, '')
+  const cleanSlug = slug.replace(/[^a-z0-9]/g, '')
+
+  if (
+    slug.startsWith(dashed) ||
+    display.startsWith(q) ||
+    (cleanQ && (cleanDisplay.startsWith(cleanQ) || cleanSlug.startsWith(cleanQ)))
+  ) {
+    return 3
+  }
+  if (display.split(/[\s.:'’/-]+/).some((w) => w.startsWith(q))) return 2
+  if (
+    slug.includes(dashed) ||
+    display.includes(q) ||
+    (cleanQ && (cleanDisplay.includes(cleanQ) || cleanSlug.includes(cleanQ)))
+  ) {
+    return 1
+  }
   return 0
 }
 

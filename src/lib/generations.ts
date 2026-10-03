@@ -20,11 +20,11 @@ const REGIONS: [region: string, size: number][] = [
 
 const NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
 
-let offset = 0
+let currentStart = 1
 
 export const GENERATIONS: Generation[] = REGIONS.map(([region, size], i) => {
-  const start = offset
-  offset += size
+  const start = currentStart
+  currentStart += size
   return { id: i + 1, label: `Gen ${NUMERALS[i]}`, region, start, end: start + size - 1 }
 })
 

@@ -1,6 +1,46 @@
 const capitalise = (word: string) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : word)
 
-export const formatName = (slug: string) => capitalise(slug.trim())
+const SPECIAL_NAMES: Record<string, string> = {
+  'mr-mime': 'Mr. Mime',
+  'mr-rime': 'Mr. Rime',
+  'mime-jr': 'Mime Jr.',
+  'type-null': 'Type: Null',
+  'tapu-koko': 'Tapu Koko',
+  'tapu-lele': 'Tapu Lele',
+  'tapu-bulu': 'Tapu Bulu',
+  'tapu-fini': 'Tapu Fini',
+  'ho-oh': 'Ho-Oh',
+  'porygon-z': 'Porygon-Z',
+  'porygon2': 'Porygon2',
+  'jangmo-o': 'Jangmo-o',
+  'hakamo-o': 'Hakamo-o',
+  'kommo-o': 'Kommo-o',
+  'wo-chien': 'Wo-Chien',
+  'chien-pao': 'Chien-Pao',
+  'ting-lu': 'Ting-Lu',
+  'chi-yu': 'Chi-Yu',
+  'nidoran-f': 'Nidoran♀',
+  'nidoran-m': 'Nidoran♂',
+  'farfetchd': "Farfetch'd",
+  'sirfetchd': "Sirfetch'd",
+  'flabebe': 'Flabébé',
+}
+
+export const formatName = (slug: string) => {
+  if (!slug) return ''
+  const trimmed = slug.trim()
+  const lower = trimmed.toLowerCase()
+  if (SPECIAL_NAMES[lower]) {
+    return SPECIAL_NAMES[lower]
+  }
+  if (trimmed.includes('-')) {
+    return trimmed
+      .split('-')
+      .map((w) => capitalise(w))
+      .join(' ')
+  }
+  return capitalise(trimmed)
+}
 
 export const formatDexNumber = (id: number) => `#${String(id).padStart(4, '0')}`
 

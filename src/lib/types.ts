@@ -52,8 +52,10 @@ export const typeTextColor = (type: string) => (DARK_TEXT.has(type) ? '#1d1f2b' 
 
 const typeAtSlot = (types: string[], slot: number) => types[slot - 1] ?? types[0]
 
-export function badgeStyle(types: string[], slot = 1): CSSProperties {
-  const type = typeAtSlot(types, slot)
+export function badgeStyle(typeOrTypes: string | string[], slot = 1): CSSProperties {
+  const type = Array.isArray(typeOrTypes)
+    ? (typeOrTypes[slot - 1] ?? typeOrTypes[0] ?? '')
+    : typeOrTypes
   return { '--badge': typeColor(type), '--badge-text': typeTextColor(type) } as CSSProperties
 }
 

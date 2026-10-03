@@ -6,6 +6,7 @@ import { PokemonCard, PokemonCardSkeleton } from '../components/PokemonCard/Poke
 import { DexFilters, type SortKey } from '../components/DexFilters/DexFilters'
 import { useDexIndex, useTypeList } from '../hooks/usePokemon'
 import type { DexEntry } from '../lib/api'
+import { formatName } from '../lib/format'
 import { findGeneration, inGeneration } from '../lib/generations'
 import { matchesQuery } from '../lib/search'
 import styles from './DexPage.module.css'
@@ -15,8 +16,8 @@ const PAGE_SIZE = 24
 const SORTERS: Record<SortKey, (a: DexEntry, b: DexEntry) => number> = {
   'id-asc': (a, b) => a.id - b.id,
   'id-desc': (a, b) => b.id - a.id,
-  'name-asc': (a, b) => a.name.localeCompare(b.name),
-  'name-desc': (a, b) => b.name.localeCompare(a.name),
+  'name-asc': (a, b) => formatName(a.name).localeCompare(formatName(b.name)),
+  'name-desc': (a, b) => formatName(b.name).localeCompare(formatName(a.name)),
 }
 
 export default function DexPage() {
