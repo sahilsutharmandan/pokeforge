@@ -3,7 +3,7 @@ import { TYPES } from './types'
 
 export type Multipliers = Record<string, number>
 
-const damageFactor = (type: TypeData, attacking: string) => type.damageFrom[attacking] || 1
+const damageFactor = (type: TypeData, attacking: string) => type.damageFrom[attacking] ?? 1
 
 export function defensiveMultipliers(defending: TypeData[]): Multipliers {
   return Object.fromEntries(

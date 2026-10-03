@@ -21,7 +21,7 @@ export function StatBars({ stats }: { stats: Stat[] }) {
           >
             <div
               className={`${styles.fill} ${styles[statTone(stat.value)]}`}
-              style={{ width: `${toPercent(stat.value)}%` }}
+              style={{ width: `${toPercent(stat.value, MAX_BASE_STAT)}%` }}
             />
           </div>
         </div>
