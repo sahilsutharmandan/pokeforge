@@ -105,7 +105,12 @@
 }
 
 .option.active {
-  background: var(--surface-hover);
+  background: color-mix(in srgb, var(--focus) 22%, var(--surface-raised));
+  box-shadow: inset 3px 0 var(--focus);
+}
+
+.option.active .optionNumber {
+  color: var(--text);
 }
 
 .sprite {

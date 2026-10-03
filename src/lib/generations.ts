@@ -20,7 +20,7 @@ const REGIONS: [region: string, size: number][] = [
 
 const NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
 
-let offset = 0
+let offset = 1
 
 export const GENERATIONS: Generation[] = REGIONS.map(([region, size], i) => {
   const start = offset

@@ -42,12 +42,21 @@ export function Combobox({
   )
 
   useEffect(() => {
-    const item = listRef.current?.children[active] as HTMLElement | undefined
-    item?.scrollIntoView({ block: 'nearest' })
     setActive(-1)
   }, [matches])
 
   const showList = open && value.trim().length > 0
+
+  useEffect(() => {
+    if (!showList) return
+    const list = listRef.current
+    const item = list?.children[active] as HTMLElement | undefined
+    if (!list || !item) return
+    const bounds = list.getBoundingClientRect()
+    const row = item.getBoundingClientRect()
+    if (row.top < bounds.top) list.scrollTop -= bounds.top - row.top
+    else if (row.bottom > bounds.bottom) list.scrollTop += row.bottom - bounds.bottom
+  }, [active, showList])
 
   const pick = (entry: DexEntry) => {
     setOpen(false)
@@ -68,9 +77,9 @@ export function Combobox({
         if (matches.length) setActive((i) => (i <= 0 ? matches.length - 1 : i - 1))
         break
       case 'Enter':
-        if (showList && active >= 0 && options[active]) {
+        if (showList && active >= 0 && matches[active]) {
           e.preventDefault()
-          pick(options[active])
+          pick(matches[active])
         } else {
           setOpen(false)
         }

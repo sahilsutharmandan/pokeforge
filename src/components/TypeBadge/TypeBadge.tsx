@@ -26,8 +26,8 @@ interface ListProps {
 export function TypeBadges({ types, size = 'md' }: ListProps) {
   return (
     <span className={styles.list}>
-      {types.map((type, i) => (
-        <span key={type} className={`${styles.badge} ${styles[size]}`} style={badgeStyle(types, i)}>
+      {types.map((type) => (
+        <span key={type} className={`${styles.badge} ${styles[size]}`} style={badgeStyle([type])}>
           {formatName(type)}
         </span>
       ))}
