@@ -5,6 +5,8 @@ export type Theme = 'light' | 'dark'
 
 export const TEAM_SIZE = 6
 
+const MAX_FAVOURITES = 100
+
 export interface TeamMember {
   key: string
   id: number
@@ -55,7 +57,9 @@ function reducer(state: State, action: Action): State {
       const has = state.favourites.includes(action.id)
       return {
         ...state,
-        favourites: has ? state.favourites.filter((id) => id !== action.id) : [...state.favourites, action.id],
+        favourites: has
+          ? state.favourites.filter((id) => id !== action.id)
+          : [action.id, ...state.favourites].slice(0, MAX_FAVOURITES),
       }
     }
     default:
