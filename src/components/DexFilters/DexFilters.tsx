@@ -34,10 +34,11 @@ export function DexFilters(props: Props) {
   const { query, types, generation, sort } = props
   const navigate = useNavigate()
 
-  const toggleType = (type: string) => {
-    if (types.includes(type)) props.onTypesChange(types.filter((t) => t !== type))
-    else props.onTypesChange([...types, type].slice(-MAX_TYPES))
-  }
+  const selectedTypes = TYPES.filter((t) => types.includes(t))
+  const otherTypes = TYPES.filter((t) => !types.includes(t))
+
+  const addType = (type: string) => props.onTypesChange([...types, type].slice(-MAX_TYPES))
+  const removeType = (index: number) => props.onTypesChange(types.filter((_, i) => i !== index))
 
   const active = Boolean(query || types.length || generation || sort !== 'id-asc')
 
@@ -92,22 +93,32 @@ export function DexFilters(props: Props) {
           Types <span className={styles.hint}>(up to {MAX_TYPES})</span>
         </span>
         <div className={styles.chips} role="group" aria-label="Filter by type">
-          {TYPES.map((type) => {
-            const selected = types.includes(type)
-            return (
-              <button
-                key={type}
-                type="button"
-                className={`${styles.chip} ${selected ? styles.chipSelected : ''}`}
-                style={badgeStyle([type], 0)}
-                aria-pressed={selected}
-                onClick={() => toggleType(type)}
-              >
-                <span className={styles.dot} />
-                {formatName(type)}
-              </button>
-            )
-          })}
+          {selectedTypes.map((type, i) => (
+            <button
+              key={type}
+              type="button"
+              className={`${styles.chip} ${styles.chipSelected}`}
+              style={badgeStyle([type], 0)}
+              aria-pressed
+              onClick={() => removeType(i)}
+            >
+              <span className={styles.dot} />
+              {formatName(type)}
+            </button>
+          ))}
+          {otherTypes.map((type) => (
+            <button
+              key={type}
+              type="button"
+              className={styles.chip}
+              style={badgeStyle([type], 0)}
+              aria-pressed={false}
+              onClick={() => addType(type)}
+            >
+              <span className={styles.dot} />
+              {formatName(type)}
+            </button>
+          ))}
         </div>
         {active && (
           <button type="button" className={styles.reset} onClick={props.onReset}>
