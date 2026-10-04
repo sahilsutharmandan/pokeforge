@@ -64,7 +64,7 @@
 
 .artwork {
   width: min(100%, 340px);
-  height: auto;
+  height: 340px;
   filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.22));
   animation: pop 0.35s ease;
 }

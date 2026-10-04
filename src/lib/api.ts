@@ -189,6 +189,12 @@ const words = (slug: string) =>
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
 
+const TIME_OF_DAY: Record<string, string> = {
+  day: 'during the day',
+  night: 'at night',
+  dusk: 'at dusk',
+}
+
 function describeEvolution(details: RawEvolutionDetail[]): string {
   if (details.length === 0) return ''
   const d = details.find((x) => x.is_default) ?? details[details.length - 1]
@@ -206,9 +212,9 @@ function describeEvolution(details: RawEvolutionDetail[]): string {
   if (d.known_move_type) parts.push(`knows a ${words(d.known_move_type.name)} move`)
   if (d.known_move) parts.push(`knows ${words(d.known_move.name)}`)
   if (d.location) parts.push(`at ${words(d.location.name)}`)
-  if (d.time_of_day) parts.push(`(${d.time_of_day})`)
+  if (d.time_of_day != null) parts.push(TIME_OF_DAY[d.time_of_day] ?? `(${d.time_of_day})`)
 
-  return parts.join(', ').replace(', (', ' (')
+  return parts.join(', ').replace(/, (during|at night|at dusk|\()/, ' $1')
 }
 
 function toNode(link: RawChainLink): EvolutionNode {

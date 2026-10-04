@@ -28,8 +28,7 @@ export default function DetailPage() {
   const team = useTeam()
   const { isFavourite, toggle } = useFavourites()
   const navigate = useNavigate()
-  const [shinyFor, setShinyFor] = useState<number | null>(null)
-  const shiny = shinyFor === id
+  const [shiny, setShiny] = useState(false)
 
   if (!valid || pokemon.error) {
     return (
@@ -96,11 +95,12 @@ export default function DetailPage() {
             className={styles.artwork}
             width={475}
             height={475}
+            decoding="async"
           />
           <button
             type="button"
             className={`${styles.shinyToggle} ${shiny ? styles.shinyOn : ''}`}
-            onClick={() => setShinyFor(shiny ? null : id)}
+            onClick={() => setShiny((on) => !on)}
             aria-pressed={shiny}
           >
             <SparkleIcon size={16} />
