@@ -9,16 +9,11 @@ interface Props {
 
 function pageList(page: number, count: number): (number | 'gap')[] {
   if (count <= 7) return Array.from({ length: count }, (_, i) => i + 1)
-  const pages = new Set([1, count, page - 1, page, page + 1])
-  if (page <= 3) [2, 3, 4].forEach((p) => pages.add(p))
-  if (page >= count - 2) [count - 3, count - 2, count - 1].forEach((p) => pages.add(p))
-  const sorted = [...pages].filter((p) => p >= 1 && p <= count).sort((a, b) => a - b)
-  const out: (number | 'gap')[] = []
-  sorted.forEach((p, i) => {
-    if (i > 0 && p - sorted[i - 1] > 1) out.push('gap')
-    out.push(p)
-  })
-  return out
+  const edge = page <= 3 ? [2, 3, 4] : page >= count - 2 ? [count - 3, count - 2, count - 1] : []
+  const pages = [...new Set([1, page - 1, page, page + 1, ...edge, count])]
+    .filter((p) => p >= 1 && p <= count)
+    .sort((a, b) => a - b)
+  return pages.flatMap((p, i) => (i > 0 && p - pages[i - 1] > 1 ? ['gap' as const, p] : [p]))
 }
 
 export function Pagination({ page, pageCount, onChange }: Props) {

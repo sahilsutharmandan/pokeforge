@@ -48,12 +48,14 @@ export default function DexPage() {
       .filter((e) => (gen ? inGeneration(gen, e.id) : true))
       .filter((e) => typeSets.every((set) => set.has(e.id)))
       .filter((e) => matchesQuery(e, query))
-      .sort(SORTERS[sort] ?? SORTERS['id-asc'])
-  }, [index.data, genId, types, typeData.data, query, sort])
+  }, [index.data, genId, types, typeData.data, query])
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
-  const currentPage = Math.min(page, pageCount)
-  const pageItems = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+  const pageStart = (page - 1) * PAGE_SIZE
+  const pageItems = useMemo(
+    () => filtered.slice(pageStart, pageStart + PAGE_SIZE).sort(SORTERS[sort] ?? SORTERS['id-asc']),
+    [filtered, pageStart, sort],
+  )
   const loading = index.loading || (types.length > 0 && typeData.loading)
 
   const goToPage = (p: number) => {
@@ -105,7 +107,7 @@ export default function DexPage() {
               ? 'Loading…'
               : filtered.length === 0
                 ? 'No results'
-                : `Showing ${(currentPage - 1) * PAGE_SIZE + 1}–${Math.min(currentPage * PAGE_SIZE, filtered.length)} of ${filtered.length.toLocaleString()}`}
+                : `Showing ${pageStart + 1}–${Math.min(pageStart + PAGE_SIZE, filtered.length)} of ${filtered.length.toLocaleString()}`}
           </div>
 
           {loading ? (
@@ -134,7 +136,7 @@ export default function DexPage() {
             </div>
           )}
 
-          {!loading && <Pagination page={currentPage} pageCount={pageCount} onChange={goToPage} />}
+          {!loading && <Pagination page={page} pageCount={pageCount} onChange={goToPage} />}
         </>
       )}
     </div>
