@@ -66,11 +66,24 @@ function Picker({
 
 interface Row {
   label: string
-  av: number
-  bv: number
   a: string
   b: string
   neutral?: boolean
+}
+
+function buildRows(a: Pokemon, b: Pokemon): Row[] {
+  const row = (label: string, get: (p: Pokemon) => number, format: (v: number) => string = String, neutral = false) => ({
+    label,
+    a: format(get(a)),
+    b: format(get(b)),
+    neutral,
+  })
+  return [
+    ...STAT_ORDER.map((k) => row(STAT_LABELS[k], (p) => statValue(p.stats, k))),
+    row('Total', (p) => statTotal(p.stats)),
+    row('Height', (p) => p.height, formatHeight, true),
+    row('Weight', (p) => p.weight, formatWeight, true),
+  ]
 }
 
 export default function ComparePage() {
@@ -92,21 +105,7 @@ export default function ComparePage() {
 
   const swap = () => setParams(new URLSearchParams({ a: String(bId), b: String(aId) }), { replace: true })
 
-  const rows: Row[] =
-    a && b
-      ? [
-          ...STAT_ORDER.map((k) => ({
-            label: STAT_LABELS[k],
-            av: statValue(a.stats, k),
-            bv: statValue(b.stats, k),
-            a: String(statValue(a.stats, k)),
-            b: String(statValue(b.stats, k)),
-          })),
-          { label: 'Total', av: statTotal(a.stats), bv: statTotal(b.stats), a: String(statTotal(a.stats)), b: String(statTotal(b.stats)) },
-          { label: 'Height', av: a.height, bv: b.height, a: formatHeight(a.height), b: formatHeight(b.height), neutral: true },
-          { label: 'Weight', av: a.weight, bv: b.weight, a: formatWeight(a.weight), b: formatWeight(b.weight), neutral: true },
-        ]
-      : []
+  const rows = a && b ? buildRows(a, b) : []
 
   return (
     <div className="page">
@@ -142,8 +141,8 @@ export default function ComparePage() {
                 {rows.map((r) => (
                   <tr key={r.label} className={r.label === 'Total' ? styles.totalRow : ''}>
                     <th scope="row">{r.label}</th>
-                    <td className={!r.neutral && r.av > r.bv ? styles.win : ''}>{r.a}</td>
-                    <td className={!r.neutral && r.bv > r.av ? styles.win : ''}>{r.b}</td>
+                    <td className={!r.neutral && r.a > r.b ? styles.win : ''}>{r.a}</td>
+                    <td className={!r.neutral && r.b > r.a ? styles.win : ''}>{r.b}</td>
                   </tr>
                 ))}
               </tbody>

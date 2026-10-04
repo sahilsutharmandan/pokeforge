@@ -1,6 +1,6 @@
 import type { Pokemon, TypeData } from '../../lib/api'
 import { formatName } from '../../lib/format'
-import { defensiveMultipliers, offensiveHits } from '../../lib/typeChart'
+import { defensiveMultipliers } from '../../lib/typeChart'
 import { TYPES } from '../../lib/types'
 import { TypeBadge } from '../TypeBadge/TypeBadge'
 import styles from './TeamCoverage.module.css'
@@ -21,16 +21,12 @@ export function TeamCoverage({ members, allTypes }: Props) {
     const weak = values.filter((v) => v > 1).length
     const resist = values.filter((v) => v > 0 && v < 1).length
     const immune = values.filter((v) => v === 0).length
-    return { type, weak, resist, immune, risk: weak >= 3 && resist + immune === 0 }
+    return { type, weak, resist, immune, risk: weak >= 3 && resist === 0 }
   })
 
   const teamTypes = [...new Set(members.flatMap((m) => m.types))]
-  const covered = TYPES.filter((def) =>
-    teamTypes.some((atk) => {
-      const data = byName.get(atk)
-      return data ? offensiveHits(data, def) > 1 : false
-    }),
-  )
+  const hit = (attacking: string, defending: string) => byName.get(attacking)?.damageFrom[defending] ?? 1
+  const covered = TYPES.filter((def) => teamTypes.some((atk) => hit(atk, def) > 1))
   const uncovered = TYPES.filter((t) => !covered.includes(t))
   const risks = rows.filter((r) => r.risk)
 

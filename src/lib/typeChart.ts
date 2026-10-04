@@ -29,7 +29,3 @@ export function groupMultipliers(multipliers: Multipliers): EffectivenessGroups 
     immune: entries.filter(([, m]) => m === 0),
   }
 }
-
-export function offensiveHits(attacking: TypeData, defending: string): number {
-  return attacking.damageTo[defending] ?? 1
-}
