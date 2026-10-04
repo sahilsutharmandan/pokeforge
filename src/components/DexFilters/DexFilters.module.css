@@ -125,6 +125,14 @@
   text-decoration: underline;
 }
 
+@media (min-width: 901px) {
+  .panel {
+    position: sticky;
+    top: calc(var(--header-h) + 12px);
+    box-shadow: var(--shadow);
+  }
+}
+
 @media (max-width: 900px) {
   .row {
     grid-template-columns: 1fr 1fr;
